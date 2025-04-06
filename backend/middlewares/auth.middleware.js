@@ -1,4 +1,4 @@
-import ApiResponse from "../utils/ApiResponse";
+import ApiResponse from "../utils/ApiResponse.js";
 import jwt from "jsonwebtoken";
 
 export const authMiddleware = (req, res, next) => {
@@ -6,7 +6,11 @@ export const authMiddleware = (req, res, next) => {
 
   // Checking existence of a valid authorization header.
   if (!authHeader || !authHeader.startsWith("Bearer ")) {
-    return ApiResponse.error(res, 401, "No Authorization Header Found.");
+    return ApiResponse.error({
+      res,
+      statusCode: 401,
+      message: "No Authorization Header Found.",
+    })
   }
 
   // Extracting the token from the header.
@@ -22,6 +26,11 @@ export const authMiddleware = (req, res, next) => {
     next();
   } catch (error) {
     console.error(error);
-    return ApiResponse.error(res, 401, "Invalid JWT Token", [error]);
+    return ApiResponse.error({
+      res,
+      statusCode: 401,
+      message: "Invalid JWT Token",
+      errors: [error]
+    })
   }
 }

@@ -11,7 +11,10 @@ app.use(express.json());
 app.use(cors());
 
 import signUpRouter from "./routes/sign-up.route.js";
+import updateProfileRouter from "./routes/update-profile.route.js";
+
 app.use("/api/v1", signUpRouter);
+app.use("/api/v1", updateProfileRouter);
 
 app.listen(PORT, () => {
   console.log(`Server Unfortunately Running at http://localhost:${PORT}`);
