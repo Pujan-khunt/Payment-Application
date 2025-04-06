@@ -44,6 +44,7 @@ export async function signUpUser(req, res) {
   })
   await newUser.save();
 
+  // Generating the JWT Token using the private JWT secret.
   const jwtPayload = {
     userId: newUser._id
   }

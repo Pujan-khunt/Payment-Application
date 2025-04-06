@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import bcrypt from "bcrypt";
 
 const UserSchema = new mongoose.Schema({
   username: {
@@ -29,5 +30,23 @@ const UserSchema = new mongoose.Schema({
     minLength: 8
   },
 });
+
+// Pre-save hook to hash passwords before saving in database.
+UserSchema.pre("save", async function(next) {
+  // Hash password for new user and for user for whom the password field is updated.
+  if (this.isNew || this.isModified("password")) {
+    try {
+      this.password = await bcrypt.hash(this.password, 10);
+    } catch (error) {
+      return next(error);
+    }
+  }
+  next();
+});
+
+// Method attached to all documents for verifying its password with another.
+UserSchema.methods.validatePassword = async function(passwordToValidate) {
+  return await bcrypt.compare(this.password, passwordToValidate);
+}
 
 export const User = mongoose.model("User", UserSchema);
