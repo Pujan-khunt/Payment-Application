@@ -12,9 +12,11 @@ app.use(cors());
 
 import signUpRouter from "./routes/sign-up.route.js";
 import updateProfileRouter from "./routes/update-profile.route.js";
+import bulkRouter from "./routes/bulk.route.js";
 
 app.use("/api/v1", signUpRouter);
 app.use("/api/v1", updateProfileRouter);
+app.use("/api/v1", bulkRouter);
 
 app.listen(PORT, () => {
   console.log(`Server Unfortunately Running at http://localhost:${PORT}`);
