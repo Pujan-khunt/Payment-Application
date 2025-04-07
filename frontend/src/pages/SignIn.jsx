@@ -1,4 +1,3 @@
-import React from "react";
 import Background from "../components/Background.jsx";
 import Dialog from "../components/Dialog.jsx";
 import InputField from "../components/InputField.jsx";
@@ -13,7 +12,7 @@ function SignIn() {
     <Background>
       <div className="flex justify-center items-center h-full">
         <Dialog>
-          <Header headerText="Sign Up" />
+          <Header headerText="Sign In" />
           <SubHeader subHeaderText="Enter Your Information To Create Your Account" />
           <FormWrapper>
             <InputField label="Username" placeholder="Pujan Khunt" isRequired={true} type="text" />
@@ -22,7 +21,7 @@ function SignIn() {
             <InputField label="Password (8 Characters Minimum)" placeholder="Secure Password" isRequired={true} type="password" />
             <SubmitButton buttonText="Submit" />
           </FormWrapper>
-          <DialogFooter footerText="Already have an account?" footerLinkText="Sign In" />
+          <DialogFooter footerText="Dont have an account?" footerLinkText="Sign Up" />
         </Dialog>
       </div>
     </Background>
