@@ -10,25 +10,25 @@ const updatedUserDataSchema = z.object({
 });
 
 export const updateProfile = async (req, res) => {
-  const data = req.body;
+  const updatedUserData = req.body;
 
   // Validating the updated user fields with zod.
-  const validationResponse = updatedUserDataSchema.safeParse(data);
+  const validationResponse = updatedUserDataSchema.safeParse(updatedUserData);
   if (!validationResponse.success) {
     return ApiResponse.error({
       res,
       statusCode: 400,
       message: "Updated profile data is not up to the standard. Check error message for better understanding",
-      errors: [validationResponse.error]
+      errors: validationResponse.error
     })
   }
 
   // Updating the profile's data with the provided data.
   const updatedUser = await User.findByIdAndUpdate(req.userId, {
-    ...(data.username && { username: data.username }),
-    ...(data.firstName && { firstName: data.firstName }),
-    ...(data.lastName && { lastName: data.lastName }),
-    ...(data.password && { password: data.password })
+    ...(updatedUserData.username && { username: updatedUserData.username }),
+    ...(updatedUserData.firstName && { firstName: updatedUserData.firstName }),
+    ...(updatedUserData.lastName && { lastName: updatedUserData.lastName }),
+    ...(updatedUserData.password && { password: updatedUserData.password })
   }, { new: true });
 
   return ApiResponse.success({
