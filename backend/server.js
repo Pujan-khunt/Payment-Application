@@ -10,13 +10,11 @@ const PORT = process.env.PORT;
 app.use(express.json());
 app.use(cors());
 
-import signUpRouter from "./routes/sign-up.route.js";
-import updateProfileRouter from "./routes/update-profile.route.js";
-import bulkRouter from "./routes/bulk.route.js";
+import userRouter from "./routes/user.router.js";
+import accountRouter from "./routes/account.router.js";
 
-app.use("/api/v1", signUpRouter);
-app.use("/api/v1", updateProfileRouter);
-app.use("/api/v1", bulkRouter);
+app.use("/api/v1", userRouter);
+app.use("/api/v1", accountRouter);
 
 app.listen(PORT, () => {
   console.log(`Server Unfortunately Running at http://localhost:${PORT}`);
