@@ -1,0 +1,17 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: "aboriginal";
+  src: url("./Assets/fonts/NotoSansCanadianAboriginal-VariableFont_wght.ttf");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@theme {
+  --font-display: "aboriginal", "sans-serif";
+}
+
+body {
+  font-family: "aboriginal", "sans-serif";
+}
