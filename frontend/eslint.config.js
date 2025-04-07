@@ -28,6 +28,15 @@ export default [
         'warn',
         { allowConstantExport: true },
       ],
+      "semi": ["error", "always"],
+      "quotes": ["error", "double", { avoidEscape: true, allowEscapeLiterals: true }],
+      "no-unused-vars": ["warn"],
+      "indent": ["error", 2],
+      "object-curly-spacing": ["error", "always"],
+      "prefer-const": "error",
+      "no-trailing-spaces": "error",
+      "comma-dangle": ["error", "always-multiline"],
+      "no-multiple-empty-lines": ["error", { max: 1 }]
     },
   },
 ]
