@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 import profilePhoto from "../Assets/images/profile.jpg";
 
 function AvatarCard({ name, phoneNumber }) {
@@ -10,7 +10,7 @@ function AvatarCard({ name, phoneNumber }) {
         <div className='row-span-1 self-start text-center'>{phoneNumber}</div>
       </div>
     </div>
-  )
+  );
 }
 
-export default AvatarCard
+export default AvatarCard;
