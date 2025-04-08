@@ -14,7 +14,7 @@ function NotFound404() {
         </div>
         <Header headerText="404: Not Found" />
         <SubHeading subHeaderText="Oops! The page you're looking for doesn't exist or has been moved." />
-        <Button buttonText="Back To Homepage" bgColor="bg-blue-600" />
+        <Button buttonText="Back To Homepage" bgColor="bg-blue-600" width="w-full" />
       </Dialog>
     </div>
   );

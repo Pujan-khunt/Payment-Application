@@ -6,6 +6,7 @@ import DialogFooter from "../components/DialogFooter.jsx";
 import Header from "../components/Header.jsx";
 import SubHeader from "../components/SubHeader.jsx";
 import FormWrapper from "../components/FormWrapper.jsx";
+import VerticalGap from "../components/VerticalGap.jsx";
 
 function SignUp() {
   return (
@@ -17,6 +18,7 @@ function SignUp() {
           <FormWrapper>
             <InputField label="Username" placeholder="Pujan Khunt" isRequired={true} type="text" />
             <InputField label="Password (8 Characters Minimum)" placeholder="Secure Password" isRequired={true} type="password" />
+            <VerticalGap gap="my-4"/>
             <SubmitButton buttonText="Submit" />
           </FormWrapper>
           <DialogFooter footerText="Already have an account?" footerLinkText="Sign In" />
