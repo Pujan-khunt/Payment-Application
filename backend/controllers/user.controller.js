@@ -6,6 +6,7 @@ import ApiResponse from "../utils/ApiResponse.js";
 
 const updatedUserDataSchema = z.object({
   username: z.string().min(3).max(30).optional(),
+  email: z.string().email(),
   firstName: z.string().max(50).optional(),
   lastName: z.string().max(50).optional(),
   password: z.string().min(8).optional()
@@ -28,6 +29,7 @@ export const updateProfile = async (req, res) => {
   // Updating the profile's data with the provided data.
   const existingUser = await User.findById(req.userId);
   if (updatedUserData.username) existingUser.username = updatedUserData.username;
+  if (updatedUserData.email) existingUser.email = updatedUserData.email;
   if (updatedUserData.firstName) existingUser.firstName = updatedUserData.firstName;
   if (updatedUserData.lastName) existingUser.lastName = updatedUserData.lastName;
   if (updatedUserData.password) existingUser.password = updatedUserData.password;
@@ -37,18 +39,13 @@ export const updateProfile = async (req, res) => {
     res: res,
     statusCode: 200,
     message: "User's profile updated successfully.",
-    data: {
-      updatedUser: {
-        username: existingUser.username,
-        firstName: existingUser.firstName,
-        lastName: existingUser.lastName,
-      }
-    }
+    data: null
   });
 }
 
 const userDataSchema = z.object({
   username: z.string().min(3).max(30),
+  email: z.string().email(),
   firstName: z.string().max(50),
   lastName: z.string().max(50),
   password: z.string().min(8)
@@ -69,13 +66,25 @@ export async function signUpUser(req, res) {
   }
 
   // Checking for users with duplicate usernames.
-  const existingUser = User.findOne({ username: userData.username });
+  const existingUserWithSameUsername = User.findOne({ username: userData.username });
+  const existingUserWithSameEmail = User.findOne({ email: userData.email });
+
   // Only users with unique usernames are allowed to sign-up.
-  if (existingUser?._id) {
+  if (existingUserWithSameUsername?._id) {
     return ApiResponse.error({
       res,
       statusCode: 400,
-      message: "Username already taken. Try again :(",
+      message: "Username already taken. Try again :( hello",
+      errors: null
+    })
+  }
+
+  // Only users with unique emails are allowed to sign-up 
+  if (existingUserWithSameEmail?._id) {
+    return ApiResponse.error({
+      res,
+      statusCode: 400,
+      message: "User with email already exists :(",
       errors: null
     })
   }
@@ -83,6 +92,7 @@ export async function signUpUser(req, res) {
   // Creating a new instance of User model.
   const newUser = new User({
     username: userData.username,
+    email: userData.email,
     firstName: userData.firstName,
     lastName: userData.lastName,
     password: userData.password
@@ -109,6 +119,7 @@ export async function signUpUser(req, res) {
     data: {
       user: {
         username: newUser.username,
+        email: newUser.email,
         firstName: newUser.firstName,
         lastName: newUser.lastName,
         balance: newAccount.balance
@@ -155,7 +166,7 @@ export const getProfilesByFilter = async (req, res) => {
 }
 
 const userLoginSchema = z.object({
-  username: z.string().email(),
+  email: z.string().email(),
   password: z.string().min(8)
 })
 
@@ -173,16 +184,26 @@ export const signInUser = async (req, res) => {
     })
   }
 
-  const { username, password } = data;
+  const { email, password } = data;
 
   // validating password provided with existing password of the user.
-  const user = await User.findOne({ username }).exec();
+  const user = await User.findOne({ email }).exec();
+  if (!user) {
+    return ApiResponse.error({
+      res,
+      statusCode: 401,
+      message: "Email not registered with us.",
+      errors: null
+    })
+  }
+
   const passwordValidation = user.validatePassword(password);
   if (!passwordValidation) {
     return ApiResponse.error({
       res,
       statuscode: 401,
-      message: "incorrect username/password. try again :( "
+      message: "incorrect username/password. try again :(",
+      errors: null
     })
   }
 
@@ -190,5 +211,6 @@ export const signInUser = async (req, res) => {
     res,
     stauscode: 200,
     messsage: "user authenticated successfully",
+    data: null
   })
 }

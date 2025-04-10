@@ -14,20 +14,18 @@ import { useNavigate } from "react-router-dom";
 
 function SignUp() {
   const navigate = useNavigate();
-  const [username, setUsername] = useState("");
+  const [email, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
   const handleSignIn = async (e) => {
     e.preventDefault();
-
     const formData = {
-      username,
+      email,
       password
     }
 
     const token = JSON.parse(localStorage.getItem("jwtToken")).token;
-
     try {
       const response = await axios.post("http://localhost:3000/api/v1/sign-in", formData, {
         headers: {
@@ -53,13 +51,13 @@ function SignUp() {
           <Header headerText="Sign In" />
           <SubHeader subHeaderText="Enter Your Information To Sign In" />
           <FormWrapper onSubmit={handleSignIn}>
-            <InputField value={username} onChange={(e) => setUsername(e.target.value)} label="Email" placeholder="pujankhunt2412@gmail.com" isRequired={true} type="text" />
-            <InputField value={password} onChange={(e) => setPassword(e.target.value)} label="Password (8 Characters Minimum)" placeholder="Secure Password" isRequired={true} type="password" />
+            <InputField value={email} onChange={(e) => setUsername(e.target.value)} label="Email" placeholder="pujankhunt2412@gmail.com" isRequired={true} type="text" />
+            <InputField value={password} onChange={(e) => setPassword(e.target.value)} label="Password" placeholder="Secure Password" isRequired={true} type="password" />
             <VerticalGap gap="my-4" />
+            {error && <ErrorComponent errorMessage={error} />}
             <SubmitButton buttonText="Submit" />
           </FormWrapper>
           <DialogFooter footerText="Dont have an account?" footerLinkText="Sign Up" />
-          {error && <ErrorComponent errorMessage={error} />}
         </Dialog>
       </div>
     </Background>

@@ -9,18 +9,22 @@ import FormWrapper from "../components/FormWrapper.jsx";
 import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import ErrorComponent from "../components/ErrorComponent.jsx";
 
 function SignIn() {
   const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const [error, setError] = useState("");
 
-  const handleSignIn = async (e) => {
+  const handleSignUp = async (e) => {
     e.preventDefault();
     const formData = {
       username,
+      email,
       firstName,
       lastName,
       password,
@@ -34,12 +38,11 @@ function SignIn() {
         localStorage.setItem("jwtToken", JSON.stringify({ token: data.data.jwtToken }));
         navigate("/sign-in");
       } else {
+        setError(data.data.message);
         console.error("Sign up failed:", data.message);
-        alert(data.message);
       }
-
     } catch (error) {
-      alert("An error occurred while signing up. Please try again.");
+      setError(error.message);
       console.error("Error signing up:", error);
     }
   }
@@ -50,11 +53,15 @@ function SignIn() {
         <Dialog>
           <Header headerText="Sign Up" />
           <SubHeader subHeaderText="Enter Your Information To Create Your Account" />
-          <FormWrapper onSubmit={handleSignIn}>
-            <InputField value={username} onChange={(e) => setUsername(e.target.value)} label="Email" placeholder="pujankhunt2412@gmail.com" isRequired={true} type="email" />
-            <InputField value={firstName} onChange={(e) => setFirstName(e.target.value)} label="First Name" placeholder="Pujan" isRequired={true} type="text" />
-            <InputField value={lastName} onChange={(e) => setLastName(e.target.value)} label="Last Name" placeholder="Khunt" isRequired={true} type="text" />
+          <FormWrapper onSubmit={handleSignUp}>
+            <InputField value={username} onChange={(e) => setUsername(e.target.value)} label="Username (Lowercase)" placeholder="pujan-khunt" isRequired={true} type="text" />
+            <InputField value={email} onChange={(e) => setEmail(e.target.value)} label="Email" placeholder="pujankhunt2412@gmail.com" isRequired={true} type="email" />
+            <div className="flex gap-4">
+              <InputField value={firstName} onChange={(e) => setFirstName(e.target.value)} label="First Name" placeholder="Pujan" isRequired={true} type="text" />
+              <InputField value={lastName} onChange={(e) => setLastName(e.target.value)} label="Last Name" placeholder="Khunt" isRequired={true} type="text" />
+            </div>
             <InputField value={password} onChange={(e) => setPassword(e.target.value)} label="Password (8 Characters Minimum)" placeholder="Secure Password" isRequired={true} type="password" />
+            {error && <ErrorComponent errorMessage={error}/>}
             <SubmitButton buttonText="Submit" />
           </FormWrapper>
           <DialogFooter footerText="Already have an account?" footerLinkText="Sign In" />

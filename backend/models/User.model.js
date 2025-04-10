@@ -11,6 +11,13 @@ const UserSchema = new mongoose.Schema({
     minLength: 3,
     maxLength: 30
   },
+  email: {
+    type: String,
+    required: true,
+    trim: true,
+    unique: false, // Only for testing -> set to true in production
+    lowercase: true,
+  },
   firstName: {
     type: String,
     unique: false, // Only for testing -> remove in production
