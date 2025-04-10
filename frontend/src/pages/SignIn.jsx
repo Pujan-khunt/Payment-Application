@@ -1,3 +1,4 @@
+import { toast } from "react-toastify";
 import ErrorComponent from "../components/ErrorComponent.jsx";
 import Background from "../components/Background";
 import Dialog from "../components/Dialog.jsx";
@@ -14,7 +15,7 @@ import { useNavigate } from "react-router-dom";
 
 function SignUp() {
   const navigate = useNavigate();
-  const [email, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
@@ -37,6 +38,7 @@ function SignUp() {
       if (!data.success) {
         setError(data.message);
       } else {
+        toast.success("User authenticated successfully.");
         navigate("/dashboard");
       }
     } catch (error) {
@@ -51,7 +53,7 @@ function SignUp() {
           <Header headerText="Sign In" />
           <SubHeader subHeaderText="Enter Your Information To Sign In" />
           <FormWrapper onSubmit={handleSignIn}>
-            <InputField value={email} onChange={(e) => setUsername(e.target.value)} label="Email" placeholder="pujankhunt2412@gmail.com" isRequired={true} type="text" />
+            <InputField value={email} onChange={(e) => setEmail(e.target.value)} label="Email" placeholder="pujankhunt2412@gmail.com" isRequired={true} type="text" />
             <InputField value={password} onChange={(e) => setPassword(e.target.value)} label="Password" placeholder="Secure Password" isRequired={true} type="password" />
             <VerticalGap gap="my-4" />
             {error && <ErrorComponent errorMessage={error} />}

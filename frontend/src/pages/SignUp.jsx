@@ -10,6 +10,7 @@ import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ErrorComponent from "../components/ErrorComponent.jsx";
+import { toast } from "react-toastify";
 
 function SignIn() {
   const [username, setUsername] = useState("");
@@ -36,6 +37,8 @@ function SignIn() {
       if (data.success) {
         console.log(data.data.jwtToken);
         localStorage.setItem("jwtToken", JSON.stringify({ token: data.data.jwtToken }));
+
+        toast.success("Account created successfully. Please sign in.");
         navigate("/sign-in");
       } else {
         setError(data.data.message);
@@ -61,7 +64,7 @@ function SignIn() {
               <InputField value={lastName} onChange={(e) => setLastName(e.target.value)} label="Last Name" placeholder="Khunt" isRequired={true} type="text" />
             </div>
             <InputField value={password} onChange={(e) => setPassword(e.target.value)} label="Password (8 Characters Minimum)" placeholder="Secure Password" isRequired={true} type="password" />
-            {error && <ErrorComponent errorMessage={error}/>}
+            {error && <ErrorComponent errorMessage={error} />}
             <SubmitButton buttonText="Submit" />
           </FormWrapper>
           <DialogFooter footerText="Already have an account?" footerLinkText="Sign In" />
