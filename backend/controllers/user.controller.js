@@ -153,3 +153,42 @@ export const getProfilesByFilter = async (req, res) => {
     }
   })
 }
+
+const userLoginSchema = z.object({
+  username: z.string().email(),
+  password: z.string().min(8)
+})
+
+export const signInUser = async (req, res) => {
+  const data = req.body;
+
+  // handling validation of inputs
+  const validationresponse = userLoginSchema.safeParse(data);
+  if (!validationresponse.success) {
+    return ApiResponse.error({
+      res,
+      statuscode: 400,
+      message: "inputs not validated. sign up failed :(",
+      errors: validationresponse.error
+    })
+  }
+
+  const { username, password } = data;
+
+  // validating password provided with existing password of the user.
+  const user = await User.findOne({ username }).exec();
+  const passwordValidation = user.validatePassword(password);
+  if (!passwordValidation) {
+    return ApiResponse.error({
+      res,
+      statuscode: 401,
+      message: "incorrect username/password. try again :( "
+    })
+  }
+
+  return ApiResponse.success({
+    res,
+    stauscode: 200,
+    messsage: "user authenticated successfully",
+  })
+}

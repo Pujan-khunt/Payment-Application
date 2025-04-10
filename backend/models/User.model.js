@@ -6,19 +6,21 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true,
     trim: true,
-    unique: true,
+    unique: false, // Only for testing -> set to true in production
     lowercase: true,
     minLength: 3,
     maxLength: 30
   },
   firstName: {
     type: String,
+    unique: false, // Only for testing -> remove in production
     required: true,
     trim: true,
     maxLength: 50
   },
   lastName: {
     type: String,
+    unique: false, // Only for testing -> remove in production
     required: true,
     trim: true,
     maxLength: 50
@@ -46,7 +48,7 @@ UserSchema.pre("save", async function(next) {
 
 // Method attached to all documents for verifying its password with another.
 UserSchema.methods.validatePassword = async function(passwordToValidate) {
-  return await bcrypt.compare(this.password, passwordToValidate);
+  return await bcrypt.compare(passwordToValidate, this.password);
 }
 
 export const User = mongoose.model("User", UserSchema);

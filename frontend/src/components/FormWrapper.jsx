@@ -1,8 +1,8 @@
 import React from "react";
 
-function FormWrapper({ children }) {
+function FormWrapper({ children, onSubmit }) {
   return (
-    <form>
+    <form onSubmit={onSubmit}>
       {children}
     </form>
   );
