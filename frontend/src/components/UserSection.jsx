@@ -1,6 +1,5 @@
 import React from "react";
 import UserCard from "./UserCard.jsx";
-import Photo from "../Assets/images/profile.jpg";
 
 function UserSection() {
   return (
@@ -11,10 +10,10 @@ function UserSection() {
           <input type="text" placeholder="Enter Username" className="focus:outline-blue-600 px-4 py-2 w-full bg-white rounded-lg border-gray-200 border-2" />
         </div>
         <div className="flex justify-between mt-6">
-          <UserCard avatarUrl={Photo} firstName="Pujan" lastName="Khunt" phoneNumber="+91 8490089630"/>
-          <UserCard avatarUrl={Photo} firstName="Pujan" lastName="Khunt" phoneNumber="+91 8490089630"/>
-          <UserCard avatarUrl={Photo} firstName="Pujan" lastName="Khunt" phoneNumber="+91 8490089630"/>
-          <UserCard avatarUrl={Photo} firstName="Pujan" lastName="Khunt" phoneNumber="+91 8490089630"/>
+          <UserCard username="pujan" firstName="Pujan" lastName="Khunt" phoneNumber="+91 8490089630" />
+          <UserCard username="aadish" firstName="Pujan" lastName="Khunt" phoneNumber="+91 8490089630" />
+          <UserCard username="ritesh" firstName="Pujan" lastName="Khunt" phoneNumber="+91 8490089630" />
+          <UserCard username="smit" firstName="Pujan" lastName="Khunt" phoneNumber="+91 8490089630" />
         </div>
       </div>
     </div>

@@ -1,12 +1,12 @@
-import React from "react";
+function UserCard({ username, firstName, lastName, phoneNumber }) {
+  const defaultAvatarUrl = `https://api.dicebear.com/9.x/lorelei/svg?backgroundType=gradientLinear&seed=${username}`;
 
-function UserCard({ avatarUrl, firstName, lastName, phoneNumber }) {
   return (
     <div className="flex w-sm rounded-2xl bg-gray-800 shadow-lg overflow-hidden shadow-emerald-500">
       <div className="flex items-center justify-center bg-emerald-700/80 p-6">
         <img
-          src={avatarUrl}
-          alt={`${firstName} ${lastName}`}
+          src={defaultAvatarUrl}
+          alt={`${firstName} ${lastName} Profile Picture`}
           className="w-32 h-32 rounded-full object-cover"
         />
       </div>

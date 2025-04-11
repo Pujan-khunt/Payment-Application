@@ -37,7 +37,6 @@ function SignIn() {
       if (data.success) {
         console.log(data.data.jwtToken);
         localStorage.setItem("jwtToken", JSON.stringify({ token: data.data.jwtToken }));
-
         toast.success("Account created successfully. Please sign in.");
         navigate("/sign-in");
       } else {
