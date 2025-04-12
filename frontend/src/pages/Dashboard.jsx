@@ -17,14 +17,13 @@ function Dashboard() {
           Authorization: `Bearer ${jwtToken}`
         }
       });
-      if(response.success) {
+      if (response.success) {
 
       }
       return response.data.data.balance;
     }
 
-    const balance = fetchUserBalance();
-    setUserBalance(balance);
+    fetchUserBalance().then(setUserBalance)
   }, []);
 
   return (
@@ -33,7 +32,8 @@ function Dashboard() {
       <div className="bg-white/70 mx-auto w-1/2 mt-6 rounded-lg py-0.5">
         <AccountBalance balance={userBalance} />
       </div>
-      <UserSection />
+      {console.log(userBalance)}
+      <UserSection myBalance={userBalance} />
     </Background>
   );
 }

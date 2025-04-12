@@ -47,6 +47,14 @@ export const transferFunds = async (req, res) => {
     let senderAccount = null;
     try {
       senderAccount = await Account.findOne({ userId: req.userId }).exec();
+      if (!senderAccount) {
+        session.abortTransaction();
+        return ApiResponse.error({
+          res,
+          statusCode: 400,
+          message: "Sender's account does not exist.",
+        })
+      }
     } catch (error) {
       session.abortTransaction();
       return ApiResponse.error({
@@ -69,7 +77,15 @@ export const transferFunds = async (req, res) => {
 
     // Handling existence of recipient's account.
     try {
-      await Account.findOne({ userId: recipientId }).exec();
+      const recipientAccount = await Account.findOne({ userId: recipientId }).exec();
+      if (!recipientAccount) {
+        session.abortTransaction();
+        return ApiResponse.error({
+          res,
+          statusCode: 400,
+          message: "Recipient's account does not exist.",
+        })
+      }
     } catch (error) {
       session.abortTransaction();
       return ApiResponse.error({

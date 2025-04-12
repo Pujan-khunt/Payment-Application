@@ -153,6 +153,29 @@ export const getProfilesByFilter = async (req, res) => {
     ]
   });
 
+  const usersWithBalance = [];
+  await Promise.all(allUsers.map((user) => populateUsers(user)));
+  function populateUsers(user) {
+    return new Promise((resolve, reject) => {
+      Account.findOne({ userId: user._id })
+        .then((account) => {
+          usersWithBalance.push({
+            _id: user._id,
+            username: user.username,
+            email: user.email,
+            firstName: user.firstName,
+            lastName: user.lastName,
+            balance: account.balance
+          });
+          resolve();
+        })
+        .catch((err) => {
+          console.error(err);
+          reject(err);
+        });
+    });
+  }
+
   return ApiResponse.success({
     res,
     statusCode: 200,
@@ -160,7 +183,7 @@ export const getProfilesByFilter = async (req, res) => {
     data: {
       // No need to map it and then return objects of users exlcuding the password field,
       // select: false, in the user model disables automatic password selecting.
-      users: allUsers
+      users: usersWithBalance
     }
   })
 }
