@@ -54,7 +54,7 @@ function SignUp() {
             {error && <ErrorComponent errorMessage={error} />}
             <SubmitButton buttonText="Submit" />
           </FormWrapper>
-          <DialogFooter footerText="Dont have an account?" footerLinkText="Sign Up" />
+          <DialogFooter onClick={() => navigate("/sign-up")} footerText="Dont have an account?" footerLinkText="Sign Up" />
         </Dialog>
       </div>
     </Background>

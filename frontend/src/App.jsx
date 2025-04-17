@@ -5,6 +5,7 @@ import SignUp from "./pages/SignUp.jsx";
 import Dashboard from "./pages/Dashboard.jsx";
 import SendMoney from "./pages/SendMoney.jsx";
 import NotFound from "./pages/NotFound.jsx";
+import Landing from "./pages/Landing.jsx"
 
 import axios from "axios";
 axios.defaults.baseURL = "https://payment-application-e9e6.onrender.com/api/v1";
@@ -13,6 +14,7 @@ function App() {
   return (
     <>
       <Routes>
+        <Route path="/" element={<Landing />} />
         <Route path="/sign-in" element={<SignIn />} />
         <Route path='/sign-up' element={<SignUp />} />
         <Route path='/dashboard' element={<Dashboard />} />

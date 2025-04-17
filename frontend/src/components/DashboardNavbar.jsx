@@ -1,7 +1,7 @@
 import React from "react";
 import Logo from "../Assets/images/Payap2.png";
 
-function Navbar({ firstName, avatarUrl }) {
+function DashboardNavbar({ firstName, avatarUrl }) {
   return (
     <div className="w-full h-16 bg-emerald-500 flex items-center px-4 shadow-md">
       <div className='flex items-center flex-1'>
@@ -11,11 +11,11 @@ function Navbar({ firstName, avatarUrl }) {
         </div>
       </div>
       <div className='flex gap-x-4 items-center'>
-        <p className='text-lg'>Hello, {firstName}</p>
-        <img src={avatarUrl} className="w-10 h-10 rounded-full"/>
+        <p className='text-lg'>{firstName ? `Hello {firstName}` : "Welcome to Payap"}</p>
+        <img src={avatarUrl} className="w-10 h-10 rounded-full" />
       </div>
     </div>
   );
 }
 
-export default Navbar;
+export default DashboardNavbar;
