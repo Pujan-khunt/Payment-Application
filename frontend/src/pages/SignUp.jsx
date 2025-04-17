@@ -32,7 +32,7 @@ function SignIn() {
     };
 
     try {
-      const response = await axios.post("http://localhost:3000/api/v1/sign-up", formData);
+      const response = await axios.post("/sign-up", formData);
       const data = response.data;
       if (data.success) {
         console.log(data.data.jwtToken);

@@ -8,7 +8,10 @@ const app = express();
 const PORT = process.env.PORT;
 
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+  origin: "https://payment-application-nine.vercel.app",
+  credentials: true
+}));
 
 import userRouter from "./routes/user.router.js";
 import accountRouter from "./routes/account.router.js";

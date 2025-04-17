@@ -12,7 +12,7 @@ function UserSection({ myBalance }) {
     const token = JSON.parse(localStorage.getItem("jwtToken")).token;
 
     const fetchUsers = async () => {
-      const response = await axios.get(`http://localhost:3000/api/v1/get-profiles?filter=${search}`, {
+      const response = await axios.get(`/get-profiles?filter=${search}`, {
         headers: {
           Authorization: `Bearer ${token}`
         }

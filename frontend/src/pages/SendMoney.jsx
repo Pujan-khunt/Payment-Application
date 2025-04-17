@@ -26,7 +26,7 @@ function SendMoney() {
     }
 
     const jwtToken = JSON.parse(localStorage.getItem("jwtToken")).token;
-    const response = await axios.post("http://localhost:3000/api/v1/transfer", {
+    const response = await axios.post("/transfer", {
       recipientId: userId,
       amount: amount
     }, {

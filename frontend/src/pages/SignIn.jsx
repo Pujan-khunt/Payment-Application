@@ -28,21 +28,16 @@ function SignUp() {
 
     const token = JSON.parse(localStorage.getItem("jwtToken")).token;
     try {
-      const response = await axios.post("http://localhost:3000/api/v1/sign-in", formData, {
+      await axios.post("/sign-in", formData, {
         headers: {
           Authorization: `Bearer ${token}`
         }
       });
-      const data = response.data;
 
-      if (!data.success) {
-        setError(data.message);
-      } else {
-        toast.success("User authenticated successfully.");
-        navigate("/dashboard");
-      }
+      toast.success("User authenticated successfully.");
+      navigate("/dashboard");
     } catch (error) {
-      setError(error.message);
+      setError(error.response.data.message);
     }
   }
 

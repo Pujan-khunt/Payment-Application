@@ -210,7 +210,7 @@ export const signInUser = async (req, res) => {
   const { email, password } = data;
 
   // validating password provided with existing password of the user.
-  const user = await User.findOne({ email }).exec();
+  const user = await User.findOne({ email }).select("+password").exec();
   if (!user) {
     return ApiResponse.error({
       res,
@@ -220,7 +220,7 @@ export const signInUser = async (req, res) => {
     })
   }
 
-  const passwordValidation = user.validatePassword(password);
+  const passwordValidation = await user.validatePassword(password);
   if (!passwordValidation) {
     return ApiResponse.error({
       res,

@@ -12,7 +12,7 @@ function Dashboard() {
   useEffect(() => {
     const fetchUserBalance = async () => {
       const jwtToken = JSON.parse(localStorage.getItem("jwtToken")).token;
-      const response = await axios.get("http://localhost:3000/api/v1/balance", {
+      const response = await axios.get("/balance", {
         headers: {
           Authorization: `Bearer ${jwtToken}`
         }

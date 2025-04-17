@@ -6,6 +6,9 @@ import Dashboard from "./pages/Dashboard.jsx";
 import SendMoney from "./pages/SendMoney.jsx";
 import NotFound from "./pages/NotFound.jsx";
 
+import axios from "axios";
+axios.defaults.baseURL = "https://payment-application-e9e6.onrender.com/api/v1";
+
 function App() {
   return (
     <>

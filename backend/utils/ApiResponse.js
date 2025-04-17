@@ -10,6 +10,7 @@ class ApiResponse {
   }
 
   static error({ res, statusCode = 500, message = "Internal Server Error", errors = {} }) {
+    console.log(statusCode)
     return res.status(statusCode).json({
       success: false,
       statusCode,
