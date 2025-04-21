@@ -6,7 +6,7 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true,
     trim: true,
-    unique: false, // Only for testing -> set to true in production
+    unique: true,
     lowercase: true,
     minLength: 3,
     maxLength: 30
@@ -15,19 +15,17 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true,
     trim: true,
-    unique: false, // Only for testing -> set to true in production
+    unique: true,
     lowercase: true,
   },
   firstName: {
     type: String,
-    unique: false, // Only for testing -> remove in production
     required: true,
     trim: true,
     maxLength: 50
   },
   lastName: {
     type: String,
-    unique: false, // Only for testing -> remove in production
     required: true,
     trim: true,
     maxLength: 50

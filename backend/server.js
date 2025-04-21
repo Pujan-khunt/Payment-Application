@@ -9,7 +9,7 @@ const PORT = process.env.PORT;
 
 app.use(express.json());
 app.use(cors({
-  origin: "https://payment-application-nine.vercel.app",
+  origin: ["https://payment-application-nine.vercel.app", "http://localhost:5173"],
   credentials: true
 }));
 
@@ -19,6 +19,4 @@ import accountRouter from "./routes/account.router.js";
 app.use("/api/v1", userRouter);
 app.use("/api/v1", accountRouter);
 
-app.listen(PORT, () => {
-  console.log(`Server Unfortunately Running at http://localhost:${PORT}`);
-})
+app.listen(PORT);

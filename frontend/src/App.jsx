@@ -8,8 +8,7 @@ import NotFound from "./pages/NotFound.jsx";
 import Landing from "./pages/Landing.jsx"
 
 import axios from "axios";
-axios.defaults.baseURL = "https://payment-application-e9e6.onrender.com/api/v1";
-
+axios.defaults.baseURL = "http://localhost:3000/api/v1";
 function App() {
   return (
     <>
