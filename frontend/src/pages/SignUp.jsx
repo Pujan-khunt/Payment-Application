@@ -7,28 +7,28 @@ import Header from "../components/Header.jsx";
 import SubHeader from "../components/SubHeader.jsx";
 import FormWrapper from "../components/FormWrapper.jsx";
 import axios from "axios";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ErrorComponent from "../components/ErrorComponent.jsx";
 import { toast } from "react-toastify";
 
 function SignIn() {
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [password, setPassword] = useState("");
+  const usernameRef = useRef(null);
+  const emailRef = useRef(null);
+  const firstNameRef = useRef(null);
+  const lastNameRef = useRef(null);
+  const passwordRef = useRef(null);
   const navigate = useNavigate();
   const [error, setError] = useState("");
 
   const handleSignUp = async (e) => {
     e.preventDefault();
     const formData = {
-      username,
-      email,
-      firstName,
-      lastName,
-      password,
+      username: usernameRef.current.value,
+      email: emailRef.current.value,
+      firstName: firstNameRef.current.value,
+      lastName: lastNameRef.current.value,
+      password: passwordRef.current.value,
     };
 
     try {
@@ -56,13 +56,13 @@ function SignIn() {
           <Header headerText="Sign Up" />
           <SubHeader subHeaderText="Enter Your Information To Create Your Account" />
           <FormWrapper onSubmit={handleSignUp}>
-            <InputField value={username} onChange={(e) => setUsername(e.target.value)} label="Username (Lowercase)" placeholder="pujan-khunt" isRequired={true} type="text" />
-            <InputField value={email} onChange={(e) => setEmail(e.target.value)} label="Email" placeholder="pujankhunt2412@gmail.com" isRequired={true} type="email" />
+            <InputField ref={usernameRef} label="Username (Lowercase)" placeholder="pujan-khunt" isRequired={true} type="text" />
+            <InputField ref={emailRef} label="Email" placeholder="pujankhunt2412@gmail.com" isRequired={true} type="email" />
             <div className="flex gap-4">
-              <InputField value={firstName} onChange={(e) => setFirstName(e.target.value)} label="First Name" placeholder="Pujan" isRequired={true} type="text" />
-              <InputField value={lastName} onChange={(e) => setLastName(e.target.value)} label="Last Name" placeholder="Khunt" isRequired={true} type="text" />
+              <InputField ref={firstNameRef} label="First Name" placeholder="Pujan" isRequired={true} type="text" />
+              <InputField ref={lastNameRef} label="Last Name" placeholder="Khunt" isRequired={true} type="text" />
             </div>
-            <InputField value={password} onChange={(e) => setPassword(e.target.value)} label="Password (8 Characters Minimum)" placeholder="Secure Password" isRequired={true} type="password" />
+            <InputField ref={passwordRef} label="Password (8 Characters Minimum)" placeholder="Secure Password" isRequired={true} type="password" />
             {error && <ErrorComponent errorMessage={error} />}
             <SubmitButton buttonText="Submit" />
           </FormWrapper>

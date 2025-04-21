@@ -8,7 +8,8 @@ import NotFound from "./pages/NotFound.jsx";
 import Landing from "./pages/Landing.jsx"
 
 import axios from "axios";
-axios.defaults.baseURL = "http://localhost:3000/api/v1";
+axios.defaults.baseURL = import.meta.env.VITE_API_URL;
+
 function App() {
   return (
     <>
